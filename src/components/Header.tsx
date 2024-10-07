@@ -13,7 +13,7 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
+          <Nav className="ms-auto fw-bold">
             <Nav.Link className="nav-text" href="#home1">소개</Nav.Link>
             <Nav.Link className="nav-text" href="#features">자주묻는 질문</Nav.Link>
             <Nav.Link className="nav-text" href="#pricing">문의</Nav.Link>
