@@ -107,3 +107,7 @@
   height: 45px;
   cursor: pointer;
 }
+.nav-text{
+  color:#ffffff!important;
+  font-size: 0.8rem!important;
+}

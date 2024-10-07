@@ -9,7 +9,7 @@ const Home = () => {
   <Col xs={7} md={7}>
     <img 
   className="temp-img"
-  src="https://velog.velcdn.com/images/for_i_in_range/post/fda55c27-51fc-4b50-b5b6-e8ef0c6586ab/image.png" 
+  src="image1.png" 
   alt="123" 
 />
   </Col>

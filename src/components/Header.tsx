@@ -1,20 +1,27 @@
-import {Container, Nav, Navbar} from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 
 const Header = () => {
   return (
-    <div>
-        <Navbar className='header' data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home">picShare</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+    <Navbar className='header' expand="lg">
+      <Container>
+        <Navbar.Brand href="#home">
+          <img 
+            src="logo.png" 
+            alt="로고" 
+            style={{ width: '100px', height: 'auto' }} 
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link className="nav-text" href="#home1">소개</Nav.Link>
+            <Nav.Link className="nav-text" href="#features">자주묻는 질문</Nav.Link>
+            <Nav.Link className="nav-text" href="#pricing">문의</Nav.Link>
           </Nav>
-        </Container>
-      </Navbar>
-    </div>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   )
 }
 
-export default Header
+export default Header;
