@@ -72,11 +72,11 @@
   justify-content: center;
 }
 .full-page-section {
-  border: 1px solid black;
+  /* border: 1px solid red; */
   height: 100vh;
   scroll-snap-align: start;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 }
 .temp-img {
@@ -92,7 +92,8 @@
 .img-drag-upload{
   border-radius: 7px;
   background-color: #313131;
-  height: 23vh;
+  height: 30vh;
+  
 }
 .img-btn{
   color:#ffffff;
@@ -113,4 +114,57 @@
 .nav-text{
   color:#ffffff!important;
   font-size: 0.8rem!important;
+}
+.section2-img{
+  width: 100%;
+  height: 70%;
+  /* object-fit: contain; */
+  /* object-position: center; */
+}
+.section2-text{
+  color:#9DD6E9;
+  font-weight: 600;
+  font-size: 1.1rem;
+  /* font:white; */
+}
+.intro{
+  display: flex; /* display를 flex로 변경 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+.scroll-indicator {
+  width: 2em;
+  height: 2em;
+  background-color: transparent;
+  z-index: 80;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg); /* 수평 중앙 정렬 */
+  border-width: 0 0.25em 0.25em 0;
+  border-style: solid;
+  border-color: #9dd6e7;
+  animation: scrolldown 1.2s ease-in-out infinite;
+}
+
+@keyframes scrolldown {
+  0% {
+    transform: translateY(20%) rotate(45deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(0%) rotate(45deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(20%) rotate(45deg);
+    opacity: 0.7;
+  }
+}
+.section3-text{
+  font-size: 0.8em;
+  color: #B8B8B8;
+}
+.section3-img{
+  width:100%;
+height:auto;
 }

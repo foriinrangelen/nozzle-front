@@ -1,17 +1,17 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 const Content = () => {
 
-  const [isLoading, setIsLoading] = useState<Boolean>(false); // 로딩 상태 추가
+  // const [isLoading, setIsLoading] = useState<Boolean>(false); // 로딩 상태 추가
 
-  const [isDragging, setIsDragging] = useState<Boolean>(false)
-  const [droppedImage, setDroppedImage] = useState<any>(null)
-  const [searchImg, setSearchImg] = useState<any>(null)
-  const [searchImgData, setSearchImgData] = useState<any>(null)
+  // const [isDragging, setIsDragging] = useState<Boolean>(false)
+  // const [droppedImage, setDroppedImage] = useState<any>(null)
+  // const [searchImg, setSearchImg] = useState<any>(null)
+  // const [searchImgData, setSearchImgData] = useState<any>(null)
   return (
     <>
 <Row className='full-page-section-1'>
-  <Col xs={7} md={7}>
+  <Col xs={12} md={12}>
     <img 
   className="temp-img"
   src="image1.png" 
@@ -19,7 +19,7 @@ const Content = () => {
 />
   </Col>
   
-  <Col xs={7} md={7} className='fw-bold text-white'>
+  <Col xs={10} md={10} lg={5} className='fw-bold text-white'>
     <div className='text-center img-text mb-3'>원하는 이미지를 넣어보세요</div>
     <div className='img-drag-upload'></div>
     <Row className='d-flex align-items-center justify-content-center mt-1 g-2'>
@@ -33,7 +33,6 @@ const Content = () => {
   </Col>
 </Row>
   </Col>
-  
 </Row>
 
     </>
