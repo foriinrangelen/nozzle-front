@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
@@ -14,7 +14,7 @@ const Prompt = () => {
         console.log(prompt);
         console.log(typeof(prompt));
         try {
-            const response = await axios.post('http://192.168.80.122:8000/create', {
+            const response = await axios.post('http://192.168.80.188:8000/create', {
                 prompt: prompt, // 프롬프트 데이터
             }, {
                 // responseType: 'blob' // Blob 형식으로 응답 받기
@@ -39,7 +39,7 @@ const Prompt = () => {
   
   <Col xs={10} md={10} lg={5} className='prompt-text mt-5'>
   <Row>
-    <div style={{height:"13vh"}}>
+    <div style={{height:"13vh", borderBottom:"2px solid rgba(51, 51, 51, 1)"}}>
   <Col lg={12}>설명 프롬프트 작성하기</Col>
     <Col lg={12} className='mt-4 prompt-input' style={{ position: 'relative' }}>
         <input type='text' onChange={(e) => setPrompt(e.target.value)}  placeholder="떠오른 영감을 자유롭게 작성해주세요." style={{ paddingRight: '100px' }} />
