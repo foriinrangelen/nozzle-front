@@ -1,5 +1,6 @@
 // import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 const Content = () => {
 
   // const [isLoading, setIsLoading] = useState<Boolean>(false); // 로딩 상태 추가
@@ -29,10 +30,13 @@ const Content = () => {
   </Col>
   <Col xs={6} md={6} className="text-center">
   
-    <div className="img-create-btn d-flex align-items-center justify-content-center ">AI 이미지 생성하기</div>
+    <Link to={'/prompt'} className="img-create-btn d-flex align-items-center justify-content-center ">AI 이미지 생성하기</Link>
   </Col>
 </Row>
   </Col>
+  <div className="intro"  style={{height:"10vh"}}>
+              <a href='#section3' className="scroll-indicator"></a>
+          </div>
 </Row>
 
     </>

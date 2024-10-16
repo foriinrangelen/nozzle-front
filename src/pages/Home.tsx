@@ -1,8 +1,7 @@
 import { Col, Row } from 'react-bootstrap';
 import '../App.css';
 import Content from '../components/Content';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+
 const Home = () => {
 
 
@@ -48,16 +47,16 @@ const Home = () => {
     <Col xs={10} md={10} lg={5} className='fw-bold text-white'>
     <div className='d-flex align-items-center justify-content-center' style={{height:"20vh"}}>
     <div>
-    <p className='text-center fs-2'>영감을 <span style={{color:"#9dd6e7"}}>확장</span> AI 제너레이티브 채우기</p>
+    <p className='text-center fs-2'>영감을 <span style={{color:"#9dd6e7"}}>확장</span>하는 AI 제너레이티브 채우기</p>
     <p className='text-center section3-text'>반짝 떠오른 아이디어에 새로운 영감을 붙여넣으세요. 복잡한 편집 및 수정까지 지원해<br/>창작물을 더 완벽하게 내가 원하는 것으로 만들게 도와줍니다. </p>
     </div>
     </div>
     <div className='d-flex align-items-center justify-content-center' style={{height:"70vh"}}>
     <img className='section3-img' src="165922.png" alt="123"/> 
     </div>
-    <div className="intro" style={{height:"10vh"}}>
+    {/* <div className="intro" style={{height:"10vh"}}>
               <a href='#section5' className="scroll-indicator"></a>
-          </div>
+          </div> */}
     </Col>
     </Row>
 

@@ -1,0 +1,74 @@
+import React, { useState } from 'react'
+import { Col, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import axios from 'axios';
+
+const Prompt = () => {
+
+    const [imageUrl, setImageUrl] = useState<string | null>(null); // 이미지 URL 상태
+    const [prompt, setPrompt] = useState<string>("호랑이"); 
+    const [delay, setDelay] = useState<boolean>(false); 
+
+    const handleGenerateImage = async () => {
+        setDelay(true)
+        console.log(prompt);
+        console.log(typeof(prompt));
+        try {
+            const response = await axios.post('http://192.168.80.122:8000/create', {
+                prompt: prompt, // 프롬프트 데이터
+            }, {
+                // responseType: 'blob' // Blob 형식으로 응답 받기
+            });
+    
+        console.log(response.data.image_base64)
+            // Blob 데이터를 URL로 변환
+            // const imageBlob = response.data;
+            // const imageUrl = URL.createObjectURL(imageBlob);
+            // setImageUrl(imageUrl); // 이미지 URL 설정
+            const base64Image = response.data.image_base64; // Base64 문자열
+            setImageUrl(`data:image/png;base64,${base64Image}`); // 이미지 URL 설정
+            setDelay(false)
+        } catch (error) {
+            setDelay(false)
+            console.error('Error generating image:', error);
+        }
+    };
+
+  return (
+<Row className='full-page-section-prompt'>
+  
+  <Col xs={10} md={10} lg={5} className='prompt-text mt-5'>
+  <Row>
+    <div style={{height:"13vh"}}>
+  <Col lg={12}>설명 프롬프트 작성하기</Col>
+    <Col lg={12} className='mt-4 prompt-input' style={{ position: 'relative' }}>
+        <input type='text' onChange={(e) => setPrompt(e.target.value)}  placeholder="떠오른 영감을 자유롭게 작성해주세요." style={{ paddingRight: '100px' }} />
+        <button className='generate-button' onClick={handleGenerateImage} style={{ position: 'absolute', top: '10px', right: '20px' }}>이미지 생성</button>
+    </Col>
+    </div>
+    <Col lg={12}className='created-img mt-3'>
+    {delay && <div className="loading">Loading&#8230;</div>}
+    {imageUrl && 
+    <img className='temp-img1' src={imageUrl} alt="Generated" style={{ width: '100%', height: '60vh' }} />
+    } {/* 이미지 표시 */}
+    </Col>
+    {imageUrl &&  <Row className='d-flex align-items-center justify-content-center mt-1 g-2'>
+  <Col xs={6} md={6} className="text-center">
+    <div></div>
+    <div className="img-btn d-flex align-items-center justify-content-center ">편집 하러가기</div>
+  </Col>
+  <Col xs={6} md={6} className="text-center">
+  
+    <Link to={'/save'} className="img-create-btn d-flex align-items-center justify-content-center ">이미지 저장하기</Link>
+  </Col>
+</Row>}
+    
+
+    
+    </Row>
+  </Col>
+</Row>
+  )
+}
+
+export default Prompt
