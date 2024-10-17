@@ -1,47 +1,118 @@
-// import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
 const Content = () => {
+    const [uploadedImage, setUploadedImage] = useState<string | null>(null); // 업로드된 이미지 URL 상태
+    const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(null); // 이미지 크기 상태
 
-  // const [isLoading, setIsLoading] = useState<Boolean>(false); // 로딩 상태 추가
 
-  // const [isDragging, setIsDragging] = useState<Boolean>(false)
-  // const [droppedImage, setDroppedImage] = useState<any>(null)
-  // const [searchImg, setSearchImg] = useState<any>(null)
-  // const [searchImgData, setSearchImgData] = useState<any>(null)
-  return (
-    <>
-<Row className='full-page-section-1'>
-  <Col xs={12} md={12}>
-    <img 
-  className="temp-img"
-  src="image1.png" 
-  alt="123" 
-/>
-  </Col>
-  
-  <Col xs={10} md={10} lg={5} className='fw-bold text-white'>
-    <div className='text-center img-text mb-3'>원하는 이미지를 넣어보세요</div>
-    <div className='img-drag-upload'></div>
-    <Row className='d-flex align-items-center justify-content-center mt-1 g-2'>
-  <Col xs={6} md={6} className="text-center">
-    <div></div>
-    <div className="img-btn d-flex align-items-center justify-content-center ">이미지 업로드</div>
-  </Col>
-  <Col xs={6} md={6} className="text-center">
-  
-    <Link to={'/prompt'} className="img-create-btn d-flex align-items-center justify-content-center ">AI 이미지 생성하기</Link>
-  </Col>
-</Row>
-  </Col>
-  <div className="intro"  style={{height:"10vh"}}>
-              <a href='#section3' className="scroll-indicator"></a>
-          </div>
-</Row>
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const imageUrl = event.target?.result as string; // Base64 URL
+                setUploadedImage(imageUrl); // 업로드된 이미지 URL 설정
+            };
+            reader.readAsDataURL(files[0]); // 파일을 Base64로 읽기
+        }
+    };
 
-    </>
-  )
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault(); // 기본 동작 방지
+    };
+
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault(); // 기본 동작 방지
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const imageUrl = event.target?.result as string; // Base64 URL
+                setUploadedImage(imageUrl); // 업로드된 이미지 URL 설정
+                const img = new Image();
+                img.src = imageUrl;
+                img.onload = () => {
+                  const dimensions = { width: img.width, height: img.height };
+                  setImageDimensions(dimensions); // 이미지 크기 설정
+                  
+                    
+            };
+          };
+            reader.readAsDataURL(files[0]); // 파일을 Base64로 읽기
+        }
+    };
+    useEffect(()=>{
+      console.log(imageDimensions)
+    }
+    ,[imageDimensions])
+
+    return (
+        <>
+            <Row className='full-page-section-1'>
+                <Col xs={12} md={12}>
+                    <img 
+                        className="temp-img"
+                        src="image1.png" 
+                        alt="123" 
+                    />
+                </Col>
+                
+                <Col xs={10} md={10} lg={5} className='fw-bold text-white'>
+                    <div className='text-center img-text mb-3'>원하는 이미지를 넣어보세요</div>
+                    {uploadedImage ? (
+                        <img 
+                            src={uploadedImage} 
+                            alt="Uploaded" 
+                            className="uploaded-image" 
+                            style={{ width: '100%', height: '45vh' }} // 이미지 스타일 조정
+                        />
+                    ) : (
+                        <div 
+                            className='img-drag-upload' 
+                            style={{ 
+                                height: '45vh', // 드래그 영역의 높이 설정
+                                borderRadius: '8px', // 모서리 둥글게
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                background: 'rgba(255, 255, 255, 0.1)' // 배경색 추가 (선택 사항)
+                            }} 
+                            onDragOver={handleDragOver} 
+                            onDrop={handleDrop}
+                        >
+                            <div>여기에 이미지를 드래그하세요</div>
+                        </div>
+                    )}
+
+                    <Row className='d-flex align-items-center justify-content-center mt-1 g-2'>
+                        <Col xs={6} md={6} className="text-center">
+                        <label htmlFor="imageUpload" className="img-btn d-flex align-items-center justify-content-center" style={{ cursor: 'pointer' }}>
+                            이미지 업로드
+                        </label>
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleImageUpload} 
+                            style={{ display: 'none' }} // 여전히 숨김 처리
+                            id="imageUpload" 
+                        />
+                        </Col>
+                        <Col xs={6} md={6} className="text-center">
+                            <Link to={'/prompt'} className="img-create-btn d-flex align-items-center justify-content-center">
+                                AI 이미지 생성하기
+                            </Link>
+                        </Col>
+                    </Row>
+                </Col>
+                <div className="intro" style={{ height: "10vh" }}>
+                    <a href='#section2' className="scroll-indicator"></a>
+                </div>
+            </Row>
+        </>
+    );
 }
 
-export default Content
- 
+export default Content;

@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <Navbar className='header' expand="lg">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img 
             src="logo.png" 
             alt="로고" 

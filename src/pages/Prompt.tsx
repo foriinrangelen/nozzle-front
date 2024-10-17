@@ -14,18 +14,19 @@ const Prompt = () => {
         console.log(prompt);
         console.log(typeof(prompt));
         try {
-            const response = await axios.post('http://192.168.80.188:8000/create', {
+          const { data } = await axios.post('/dev/create', {
                 prompt: prompt, // 프롬프트 데이터
+
             }, {
                 // responseType: 'blob' // Blob 형식으로 응답 받기
             });
-    
-        console.log(response.data.image_base64)
-            // Blob 데이터를 URL로 변환
-            // const imageBlob = response.data;
-            // const imageUrl = URL.createObjectURL(imageBlob);
-            // setImageUrl(imageUrl); // 이미지 URL 설정
-            const base64Image = response.data.image_base64; // Base64 문자열
+            console.log(data)
+        // console.log(response.data.image_base64)
+        //     // Blob 데이터를 URL로 변환
+        //     // const imageBlob = response.data;
+        //     // const imageUrl = URL.createObjectURL(imageBlob);
+        //     // setImageUrl(imageUrl); // 이미지 URL 설정
+            const base64Image = data.image_base64; // Base64 문자열
             setImageUrl(`data:image/png;base64,${base64Image}`); // 이미지 URL 설정
             setDelay(false)
         } catch (error) {
