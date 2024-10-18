@@ -1,7 +1,7 @@
 import { Col, Row } from 'react-bootstrap';
 import '../App.css';
 import Content from '../components/Content';
-import { useState } from 'react';
+
 
 const Home = () => {
 
@@ -10,22 +10,10 @@ const Home = () => {
     <>
 <Content/>
 
-<Row id="section2" className='full-page-section'>
-        <Col className='p-0 align-items-start'>
-        <div style={{height:"70vh"}}>
-          <img className='section2-img' src="154652.png" alt=""/> 
-          </div>
-          <div style={{height:"20vh"}}>
-          <p className='text-center section2-text'> 기대이상의 놀라운 결과를 확인하세요!</p>
-          </div>
-          <div className="intro"  style={{height:"10vh"}}>
-              <a href='#section3' className="scroll-indicator"></a>
-          </div>
-        </Col>
-      </Row>
 
 
-    <Row id="section3" className='full-page-section' xs={6} md={6}>
+
+    <Row id="section2" className='full-page-section' xs={6} md={6}>
     <Col xs={10} md={10} lg={5} className='fw-bold text-white'>
     <div className='d-flex align-items-center justify-content-center' style={{height:"20vh"}}>
       <div>
@@ -37,13 +25,13 @@ const Home = () => {
     <img className='section3-img' src="165002.png" alt="123"/> 
     </div>
     <div className="intro" style={{height:"10vh"}}>
-              <a href='#section4' className="scroll-indicator"></a>
+              <a href='#section3' className="scroll-indicator"></a>
           </div>
     </Col>
     
     </Row>
 
-    <Row id="section4" className='full-page-section' xs={6} md={6}>
+    <Row id="section3" className='full-page-section' xs={6} md={6}>
     <Col xs={10} md={10} lg={5} className='fw-bold text-white'>
     <div className='d-flex align-items-center justify-content-center' style={{height:"20vh"}}>
     <div>

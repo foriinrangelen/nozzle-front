@@ -15,6 +15,7 @@
   height: 10vh;
   /* background-color: #1c1d21; */
 }
+
 .main{
   background-color: #1c1d21;
 }
@@ -57,11 +58,30 @@
   color: #b6b8b7;
   font-weight: 600;
 }
-.img-drag-upload{
+.img-drag-upload {
   border-radius: 7px;
   background-color: #313131;
-  height: 30vh;
-  
+  /* height: 30vh; */
+  height: 500px; /* 드래그 영역의 높이 설정 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: rgba(255, 255, 255, 0.1); /* 배경색 추가 (선택 사항) */
+}
+@media (max-height: 650px) {
+  .img-drag-upload {
+    height: 300px;
+    
+  }
+} /* 닫는 중괄호 추가 */
+@media (max-width: 410px) {
+  .img-drag-upload {
+    font-size: 8px;
+    /* height: 150px; */
+    
+  }
 }
 .img-btn{
   color:#ffffff;
@@ -92,7 +112,7 @@
 }
 .nav-text{
   color:#ffffff!important;
-  font-size: 0.8rem!important;
+  font-size: 1.3rem!important;
 }
 .section2-img{
   width: 100%;
@@ -116,8 +136,6 @@
   height: 2em;
   background-color: transparent;
   z-index: 80;
-  position: absolute;
-  left: 50%;
   transform: translateX(-50%) rotate(45deg); /* 수평 중앙 정렬 */
   border-width: 0 0.25em 0.25em 0;
   border-style: solid;
@@ -157,6 +175,20 @@ height:auto;
   /* font-weight: 600!important; */
   line-height: 1.8; /* 줄 간격 추가 */
 
+}
+@media (max-width: 560px) {
+  .footer {
+    font-size: 10px; /* 원하는 폰트 사이즈로 조정 */
+    height: 160px;
+    
+  }
+} /* 닫는 중괄호 추가 */
+@media (max-width: 410px) {
+  .footer {
+    font-size: 8px;
+    /* height: 150px; */
+    
+  }
 }
 .footer a {
   color: inherit; /* 부모 요소의 색상 상속 */

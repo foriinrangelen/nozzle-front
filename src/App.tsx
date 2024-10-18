@@ -6,12 +6,13 @@ import Header from './components/Header'; // Header 컴포넌트를 임포트합
 import Footer from './components/Footer'; // Footer 컴포넌트를 임포트합니다.
 import Home from './pages/Home';
 import Prompt from './pages/Prompt';
-import Edit from './pages/edit';
+import Edit from './pages/Edit';
 import Save from './pages/Save';
 import { ImageContext } from './context/ImageContext';
 import { useState } from 'react';
 
 const App = () => {
+  
   const [uploadedImage, setUploadedImage] = useState<string | null>(null); // 업로드된 이미지 URL 상태
   return (
     <>

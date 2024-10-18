@@ -7,16 +7,17 @@ const Header = () => {
         <Navbar.Brand href="/">
           <img 
             src="logo.png" 
-            alt="로고" 
-            style={{ width: '100px', height: 'auto' }} 
+            alt="로고"
+            className='logo-img' 
+            style={{ width: '200px', height: '50px' }} 
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto fw-bold">
-            <Nav.Link className="nav-text" href="#home1">소개</Nav.Link>
-            <Nav.Link className="nav-text" href="#features">자주묻는 질문</Nav.Link>
-            <Nav.Link className="nav-text" href="#pricing">문의</Nav.Link>
+            <Nav.Link className="nav-text" href="#section1">1</Nav.Link>
+            <Nav.Link className="nav-text" href="#section2">2</Nav.Link>
+            <Nav.Link className="nav-text" href="#section3">3</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

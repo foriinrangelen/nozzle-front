@@ -78,15 +78,6 @@ const Content = () => {
                     ) : (
                         <div 
                             className='img-drag-upload' 
-                            style={{ 
-                                height: '45vh', // 드래그 영역의 높이 설정
-                                borderRadius: '8px', // 모서리 둥글게
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                background: 'rgba(255, 255, 255, 0.1)' // 배경색 추가 (선택 사항)
-                            }} 
                             onDragOver={handleDragOver} 
                             onDrop={handleDrop}
                         >
@@ -113,6 +104,9 @@ const Content = () => {
                                 AI 이미지 생성하기
                             </Link>
                         </Col>
+                        
+
+          
                     </Row>
                 </Col>
 
