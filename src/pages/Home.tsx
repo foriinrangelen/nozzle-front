@@ -1,12 +1,12 @@
 import { Col, Row } from 'react-bootstrap';
 import '../App.css';
 import Content from '../components/Content';
+import { useState } from 'react';
 
 const Home = () => {
 
-
   return (
-    
+
     <>
 <Content/>
 

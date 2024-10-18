@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { ImageContext } from '../context/ImageContext';
+
 
 const Content = () => {
-    const [uploadedImage, setUploadedImage] = useState<string | null>(null); // 업로드된 이미지 URL 상태
+    const { uploadedImage, setUploadedImage } = useContext(ImageContext) || { uploadedImage: null, setUploadedImage: () => {} }; // 기본값 추가
     const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(null); // 이미지 크기 상태
 
-
+    console.log(uploadedImage)
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files && files.length > 0) {
@@ -62,12 +64,17 @@ const Content = () => {
                 <Col xs={10} md={10} lg={5} className='fw-bold text-white'>
                     <div className='text-center img-text mb-3'>원하는 이미지를 넣어보세요</div>
                     {uploadedImage ? (
+                        <>
                         <img 
                             src={uploadedImage} 
                             alt="Uploaded" 
                             className="uploaded-image" 
                             style={{ width: '100%', height: '45vh' }} // 이미지 스타일 조정
                         />
+                        <Link to={'/edit'} className="img-create-btn d-flex align-items-center justify-content-center mt-3">
+                                프롬프트로 이미지 편집하러 가기
+                            </Link>
+                        </>
                     ) : (
                         <div 
                             className='img-drag-upload' 
@@ -84,6 +91,7 @@ const Content = () => {
                             onDrop={handleDrop}
                         >
                             <div>여기에 이미지를 드래그하세요</div>
+                            
                         </div>
                     )}
 
@@ -107,9 +115,7 @@ const Content = () => {
                         </Col>
                     </Row>
                 </Col>
-                <div className="intro" style={{ height: "10vh" }}>
-                    <a href='#section2' className="scroll-indicator"></a>
-                </div>
+
             </Row>
         </>
     );
