@@ -44,7 +44,7 @@ const Prompt = () => {
   <Row>
     <div style={{height:"13vh", borderBottom:"2px solid rgba(51, 51, 51, 1)"}}>
   <Col lg={12}>설명 프롬프트 작성하기</Col>
-    <Col lg={12} className='mt-4 prompt-input' style={{ position: 'relative' }}>
+    <Col lg={12} className='mt-2 prompt-input' style={{ position: 'relative' }}>
         <input type='text' onChange={(e) => setPrompt(e.target.value)}  placeholder="떠오른 영감을 자유롭게 작성해주세요." style={{ paddingRight: '100px' }} />
         <button className='generate-button' onClick={handleGenerateImage} style={{ position: 'absolute', top: '10px', right: '20px' }}>이미지 생성</button>
     </Col>

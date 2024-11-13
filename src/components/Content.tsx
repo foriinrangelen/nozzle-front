@@ -2,23 +2,82 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { ImageContext } from '../context/ImageContext';
-
+import axios from 'axios';
 
 const Content = () => {
     const { uploadedImage, setUploadedImage } = useContext(ImageContext) || { uploadedImage: null, setUploadedImage: () => {} }; // 기본값 추가
     const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(null); // 이미지 크기 상태
 
     console.log(uploadedImage)
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
-        if (files && files.length > 0) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const imageUrl = event.target?.result as string; // Base64 URL
-                setUploadedImage(imageUrl); // 업로드된 이미지 URL 설정
-            };
-            reader.readAsDataURL(files[0]); // 파일을 Base64로 읽기
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files!;
+        console.log("files : ", files[0])
+        console.log("files[0] : ", files[0].name)
+        console.log("imageDimensions",imageDimensions)
+        interface Params {
+            [key: string]: string;
         }
+        
+        const params:Params= {
+            key: files[0].name,
+        }
+
+        if (files && files.length > 0) {
+            // const formData = new FormData();
+            // formData.append('image', files[0]); // 첫 번째 파일을 FormData에 추가
+            try {
+                // 1. presignedUrl 요청 
+                const url = await axios.get('/dev/edit', { params });
+                console.log('presignedUrl :', url.data.url);// 여기까지 받아와짐
+   
+
+                // 2. WebUI상으로 사진먼저 보여주기
+                 const reader = new FileReader();
+                reader.onload = (event) => {
+                const imageUrl = event.target?.result as string;
+                
+                const firstImage = document.getElementsByTagName('img')[1];
+                if (firstImage) {
+                  const width = String(firstImage.width);
+                  const height = String(firstImage.height);
+                  console.log('Width:', width, 'Height:', height);
+                  localStorage.setItem('width', width)
+                  localStorage.setItem('height',height)
+                }
+                setUploadedImage(imageUrl); // 업로드된 이미지 URL 설정
+                 };
+                reader.readAsDataURL(files[0]); // 파일을 Base64로 읽기
+
+                // const urlAndImage= {
+                //     url: url.data,
+                //     image: files[0]
+                // }
+                const tempName= files[0].name.split('.')[0]+"_masked."+files[0].type.split('/')[1]
+                localStorage.setItem("fileName",tempName)
+                localStorage.setItem("originalFileName",files[0].name)
+                console.log("uploadedImage",uploadedImage)
+                console.log(files[0].type)
+                // 3. 업로드 요청
+                const upload = await axios.put(url.data.url, files[0], {
+                    headers: {
+                        'Content-Type': files[0].type 
+                    }
+                });
+                
+                // console.log('업로드 성공:', upload.data);
+
+              } catch (error) {
+                console.error('업로드 실패 :', error);
+              }
+            }
+
+        //     const reader = new FileReader();
+        //     reader.onload = (event) => {
+        //         const imageUrl = event.target?.result as string; // Base64 URL
+        //         setUploadedImage(imageUrl); // 업로드된 이미지 URL 설정
+        //     };
+        //     reader.readAsDataURL(files[0]); // 파일을 Base64로 읽기
+        
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -31,7 +90,7 @@ const Content = () => {
         if (files.length > 0) {
             const reader = new FileReader();
             reader.onload = (event) => {
-                const imageUrl = event.target?.result as string; // Base64 URL
+                const imageUrl = event.target!.result as string; // Base64 URL
                 setUploadedImage(imageUrl); // 업로드된 이미지 URL 설정
                 const img = new Image();
                 img.src = imageUrl;
@@ -66,6 +125,7 @@ const Content = () => {
                     {uploadedImage ? (
                         <>
                         <img 
+                            id={"uploaded"}
                             src={uploadedImage} 
                             alt="Uploaded" 
                             className="uploaded-image" 

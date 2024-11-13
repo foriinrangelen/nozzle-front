@@ -1,6 +1,6 @@
 import { Col, Row, Spinner } from "react-bootstrap";
 import { ImageContext } from '../context/ImageContext';
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Stage, Layer, Image as KonvaImage, Line, Group, Circle } from 'react-konva';
 
@@ -11,72 +11,49 @@ const Edit = () => {
   const stageRef = useRef(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [dimensions, setDimensions] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
-  const [isComplete, setIsComplete] = useState<boolean>(false);
-  const [tempDelay, setTempDelay] = useState<boolean>(false);
-  const [tempPrompt, setTempPrompt] = useState<string>("");
+  const [isComplete, setIsComplete] = useState(false);
+  const [tempDelay, setTempDelay] = useState(false);
+  const [tempPrompt, setTempPrompt] = useState("");
   const [imgDataUrl, setImgDataUrl]= useState<string>("")
 
   // Edit Image Function
   const editPromptImage = async () => {
     setTempDelay(true);
-    
-    try {
-    if (imgDataUrl) {
-    // 1. Base64 문자열에서 MIME 타입과 데이터 분리
-    const [header, base64Data] = imgDataUrl.split(',');
-    const mimeType = header.match(/:(.*?);/)[1]; // MIME 타입 추출
-
-    // 2. Base64 문자열을 Uint8Array로 변환
-    const byteCharacters = atob(base64Data);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-
-    // 3. Blob으로 변환
-    const blob = new Blob([byteArray], { type: mimeType });
-
-    // 4. Blob을 File로 변환 (파일 이름은 원하는 대로 설정)
-    const file = new File([blob], 'uploaded_image.png', { type: mimeType });
-      console.log("file file file",file)
-      const params= {
-        key: localStorage.getItem("fileName")
-      }
-
-      // 1. presignedUrl 을 받아오기
-      const { data } = await axios.get('/dev/edit', { params });
-      console.log("presignedURL",data)
-
-      // 2. 다시 마킹이미지만 업로드
-      const response = await axios.put(data.url, file);
-      console.log(response.data);
-      // localStorage.removeItem("fileName");
+    let temp = uploadedImage;
+    let tempMarking=imgDataUrl; 
+    let temp2 = "";
+    let tempMarking2= "";
+    if (temp) {
+      console.log(temp.slice(0,30),"111")
+      console.log(temp,"123")
       
+      temp2 = temp.replace(/^data:image\/png;base64,/, '');
+      console.log(temp2,"temp2temp2temp2")
     }
-    
-    // 3. 이미지 이름을 람다로 전달
-    console.log("tempPrompt", tempPrompt)
-    console.log("localStorage.getItem('originalFileName')", localStorage.getItem('originalFileName'))
-      const { data } = await axios.post('/dev/edit', { 
+    if (tempMarking) {
+      console.log(tempMarking.slice(0,30),"222")
+      console.log(tempMarking,"456")
+      tempMarking2 = tempMarking.replace(/^data:image\/png;base64,/, '');
+    }
+    try {
+      console.log(temp2.slice(0,5),"temp2")
+      console.log(tempMarking2.slice(0,5),"tempMarking2")
+      const { data } = await axios.post('/dev/edit', {
         prompt: tempPrompt,
-        file_name: localStorage.getItem('originalFileName'),
-        // masked_image_base64: localStorage.getItem('fileName')
-       });
-      console.log(data)
-      // const base64Image = data.generated_image_base64;
-      // setUploadedImage(`data:image/png;base64,${base64Image}`);
-      // console.log('요청 보냄:', data);
-      setUploadedImage(data)
-    } 
-    
-    catch (error) {
-      console.error('Error generating image:', error);
-    } finally {
+        input_image_base64: temp2,
+        marking_image_base64:tempMarking2,
+      });
+      const base64Image = data.generated_image_base64;
+      setUploadedImage(`data:image/png;base64,${base64Image}`);
       setTempDelay(false);
+      console.log('요청보냄')
+      console.log(data)
+    } catch (error) {
+      setTempDelay(false);
+      console.error('Error generating image:', error);
     }
   };
-  
+
   // Update Dimensions on Resize
   useEffect(() => {
     const updateDimensions = () => {
@@ -157,6 +134,7 @@ const Edit = () => {
     // 생성된 이미지를 확인하기
     const markingImg = canvas.toDataURL('image/png');
     setImgDataUrl(markingImg)
+  console.log(imgDataUrl);
 
   };
   return (
@@ -166,18 +144,17 @@ const Edit = () => {
           <Col lg={12}>프롬프트로 이미지 편집하기</Col>
           <p className='edit-text'>이미지를 클릭하여 영역을 만들고 프롬프트로 편집해보세요!</p>
         </div>
-        {tempDelay && <div className="loading">Loading&#8230;</div>}
+        {tempDelay && <Spinner />}
         {uploadedImage &&
           <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '60vh' }}>
             <Stage
               width={dimensions.width}
               height={dimensions.height}
-
               ref={stageRef}
               onClick={handleClick}
-            >              
+            >
               <Layer>
-                {image && <KonvaImage x={0} y={0} width={~~localStorage.getItem('width')!} height={~~localStorage.getItem('width')!} image={image} />}
+                {image && <KonvaImage x={0} y={0} width={dimensions.width} height={dimensions.height} image={image} />}
                 <Group>
                   <Line points={points} stroke="red" strokeWidth={2} closed={isComplete} fill="rgba(255, 0, 0, 0.5)" />
                   {points.map((_, index) =>

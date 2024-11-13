@@ -59,11 +59,9 @@
   font-weight: 600;
 }
 .img-drag-upload {
-  border-radius: 7px;
+  border-radius: 8px; /* 모서리 둥글게 (수정된 부분) */
   background-color: #313131;
-  /* height: 30vh; */
-  height: 500px; /* 드래그 영역의 높이 설정 */
-  border-radius: 8px; /* 모서리 둥글게 */
+  height: 400px; /* 드래그 영역의 높이 설정 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,17 +70,15 @@
 }
 @media (max-height: 650px) {
   .img-drag-upload {
-    height: 300px;
-    
+    height: 250px; /* 높이 수정 */
   }
 } /* 닫는 중괄호 추가 */
-@media (max-width: 410px) {
+/* @media (max-width: 410px) {
   .img-drag-upload {
-    font-size: 8px;
-    /* height: 150px; */
-    
+
+    height: 300px; 
   }
-}
+} */
 .img-btn{
   color:#ffffff;
   font-size: 0.9rem;
@@ -178,15 +174,15 @@ height:auto;
 }
 @media (max-width: 560px) {
   .footer {
-    font-size: 10px; /* 원하는 폰트 사이즈로 조정 */
+    font-size: 12px; /* 원하는 폰트 사이즈로 조정 */
     height: 160px;
-    
+    padding: 30px;
   }
 } /* 닫는 중괄호 추가 */
 @media (max-width: 410px) {
   .footer {
-    font-size: 8px;
-    /* height: 150px; */
+    font-size: 9px;
+    padding: 30px;
     
   }
 }
@@ -262,7 +258,6 @@ height:auto;
 }
 /* Absolute Center Spinner */
 .loading {
-  
   position: fixed;
   z-index: 999;
   height: 2em;
@@ -388,6 +383,12 @@ height:auto;
 .edit-text {
   font-size: 0.7em;
   color: #B8B8B8;
+}
+
+@media (max-width: 430px) {
+  .edit-text {
+    font-size: 12px;
+  }
 }
 .generate-button-temp{
   width:100%;
